@@ -71,9 +71,10 @@
         }
 
         .file-list-item {
+            display: flex;
+            align-items: center;
             padding: 10px 15px;
             border-bottom: 1px solid var(--border-color);
-            cursor: pointer;
             transition: background-color 0.3s ease;
         }
 
@@ -84,6 +85,18 @@
         .file-list-item.active {
             background-color: var(--accent-color);
             color: white;
+        }
+
+        .file-checkbox {
+            margin-right: 10px;
+            width: 16px;
+            height: 16px;
+            accent-color: var(--accent-color);
+        }
+
+        .file-name {
+            flex-grow: 1;
+            cursor: pointer;
         }
 
         .main-content {
@@ -113,6 +126,13 @@
             display: flex;
             gap: 15px;
         }
+
+        .select-all-checkbox {
+            margin-right: 10px;
+            width: 16px;
+            height: 16px;
+            accent-color: var(--accent-color);
+        }
     </style>
 </head>
 <body>
@@ -121,7 +141,7 @@
             <select class="business-dropdown">
                 <option>Select Business</option>
                 <option>Tech Innovations Inc.</option>
-                <option>Global Solutions LLC</option>
+                <option>Global Solutions LLC.</option>
                 <option>Creative Minds Co.</option>
                 <option>Innovative Strategies Group</option>
             </select>
@@ -131,13 +151,35 @@
 
     <div class="app-container">
         <div class="sidebar">
+            <div class="file-list-header" style="display: flex; align-items: center; padding: 10px 15px; background-color: var(--bg-tertiary); border-bottom: 1px solid var(--border-color);">
+                <input type="checkbox" id="select-all" class="select-all-checkbox">
+                <label for="select-all">Select All</label>
+            </div>
             <ul class="file-list">
-                <li class="file-list-item active">README.md</li>
-                <li class="file-list-item">CHANGELOG.md</li>
-                <li class="file-list-item">VERSION</li>
-                <li class="file-list-item">index.html</li>
-                <li class="file-list-item">package.json</li>
-                <li class="file-list-item">LICENSE</li>
+                <li class="file-list-item active">
+                    <input type="checkbox" class="file-checkbox" checked>
+                    <span class="file-name">README.md</span>
+                </li>
+                <li class="file-list-item">
+                    <input type="checkbox" class="file-checkbox">
+                    <span class="file-name">CHANGELOG.md</span>
+                </li>
+                <li class="file-list-item">
+                    <input type="checkbox" class="file-checkbox">
+                    <span class="file-name">VERSION</span>
+                </li>
+                <li class="file-list-item">
+                    <input type="checkbox" class="file-checkbox">
+                    <span class="file-name">index.html</span>
+                </li>
+                <li class="file-list-item">
+                    <input type="checkbox" class="file-checkbox">
+                    <span class="file-name">package.json</span>
+                </li>
+                <li class="file-list-item">
+                    <input type="checkbox" class="file-checkbox">
+                    <span class="file-name">LICENSE</span>
+                </li>
             </ul>
         </div>
 
@@ -171,6 +213,7 @@ MAJOR.MINOR.PATCH
         <div class="status-left">
             <span>Branch: docRep</span>
             <span>Files: 6</span>
+            <span>Selected: 1</span>
         </div>
         <div class="status-right">
             <span>Last Updated: Jan 18, 2025</span>
@@ -179,20 +222,61 @@ MAJOR.MINOR.PATCH
     </div>
 
     <script>
-        // Interactive file list selection
-        const fileListItems = document.querySelectorAll('.file-list-item');
+        // Select all checkbox functionality
+        const selectAllCheckbox = document.getElementById('select-all');
+        const fileCheckboxes = document.querySelectorAll('.file-checkbox');
+        const statusSelectedSpan = document.querySelector('.status-left span:nth-child(3)');
+
+        selectAllCheckbox.addEventListener('change', function() {
+            fileCheckboxes.forEach(checkbox => {
+                checkbox.checked = this.checked;
+            });
+            updateSelectedCount();
+        });
+
+        // Individual file checkbox functionality
+        fileCheckboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                // Update the "Select All" checkbox if needed
+                selectAllCheckbox.checked = 
+                    Array.from(fileCheckboxes).every(cb => cb.checked);
+                
+                // Update the parent list item's active state
+                const listItem = this.closest('.file-list-item');
+                if (this.checked) {
+                    listItem.classList.add('active');
+                } else {
+                    listItem.classList.remove('active');
+                }
+                
+                updateSelectedCount();
+            });
+        });
+
+        // Update selected files count in status bar
+        function updateSelectedCount() {
+            const selectedCount = Array.from(fileCheckboxes)
+                .filter(cb => cb.checked).length;
+            statusSelectedSpan.textContent = `Selected: ${selectedCount}`;
+        }
+
+        // File selection and details display
+        const fileNames = document.querySelectorAll('.file-name');
         const fileDetails = document.querySelector('.file-details');
 
-        fileListItems.forEach(item => {
-            item.addEventListener('click', () => {
+        fileNames.forEach(fileName => {
+            fileName.addEventListener('click', () => {
                 // Remove active class from all items
-                fileListItems.forEach(i => i.classList.remove('active'));
+                document.querySelectorAll('.file-list-item').forEach(item => 
+                    item.classList.remove('active'));
                 
-                // Add active class to clicked item
-                item.classList.add('active');
+                // Add active class to clicked item's parent
+                const listItem = fileName.closest('.file-list-item');
+                listItem.classList.add('active');
                 
-                // Update file details (this would typically be dynamic)
-                fileDetails.querySelector('h2').textContent = item.textContent;
+                // Update file details
+                const fileText = fileName.textContent;
+                fileDetails.querySelector('h2').textContent = fileText;
                 
                 // In a real app, you'd fetch the file contents dynamically
                 const fileContents = {
@@ -204,7 +288,8 @@ MAJOR.MINOR.PATCH
                     'LICENSE': 'MIT License\n\nCopyright (c) 2025 Michael Baker'
                 };
 
-                fileDetails.querySelector('pre').textContent = fileContents[item.textContent] || 'File contents not available.';
+                fileDetails.querySelector('pre').textContent = 
+                    fileContents[fileText] || 'File contents not available.';
             });
         });
     </script>
