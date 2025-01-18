@@ -83,6 +83,22 @@
             flex-grow: 1;
             overflow: auto;
             padding: 20px;
+            position: relative;
+        }
+
+        .search-container {
+            background-color: var(--bg-secondary);
+            border-top: 1px solid var(--border-color);
+            padding: 10px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 8px;
+            background-color: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            border-radius: 4px;
         }
 
         .status-bar {
@@ -114,6 +130,10 @@
         .file-list-item.active {
             background-color: var(--accent-color);
             color: white;
+        }
+
+        .file-list-item.hidden {
+            display: none;
         }
 
         .file-checkbox {
@@ -208,6 +228,9 @@ This is an AI-created web application featuring a MacOS-inspired dark mode UI.
 We use Semantic Versioning (SemVer) for versioning.
                 </pre>
             </div>
+            <div class="search-container">
+                <input type="text" class="search-input" placeholder="Search files...">
+            </div>
         </div>
 
         <div class="status-bar">
@@ -247,6 +270,22 @@ We use Semantic Versioning (SemVer) for versioning.
         // File selection logic
         const fileListItems = document.querySelectorAll('.file-list-item');
         const contentDetails = document.querySelector('.content-details');
+        const searchInput = document.querySelector('.search-input');
+
+        // Search functionality
+        searchInput.addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase().trim();
+            
+            fileListItems.forEach(item => {
+                const fileName = item.querySelector('span').textContent.toLowerCase();
+                
+                if (searchTerm === '' || fileName.includes(searchTerm)) {
+                    item.classList.remove('hidden');
+                } else {
+                    item.classList.add('hidden');
+                }
+            });
+        });
 
         fileListItems.forEach(item => {
             item.addEventListener('click', (e) => {
