@@ -1,68 +1,27 @@
 # AI-Created App
 
-## Project Overview
+## Version
+Current version: 0.1.0
 
-This is a starter web application created entirely through AI assistance, demonstrating the potential of AI-driven development. The project serves as a simple yet extensible template for web applications.
+## Overview
+This is an AI-created web application featuring a MacOS-inspired dark mode UI.
 
-## Features
+## Versioning
+We use [Semantic Versioning](https://semver.org/) (SemVer) for versioning.
 
-- Clean, minimalist HTML5 structure
-- Responsive design
-- Simple, readable typography
-- Easy to customize and expand
+### Version Format
+MAJOR.MINOR.PATCH
+
+- MAJOR version: Incompatible API changes
+- MINOR version: Add functionality in a backwards-compatible manner
+- PATCH version: Backwards-compatible bug fixes
+
+## Changelog
+See [CHANGELOG.md](CHANGELOG.md) for version history and changes.
 
 ## Getting Started
-
-### Prerequisites
-
-- Any modern web browser
-- (Optional) Text editor for modifications
-
-### Installation
-
 1. Clone the repository
-   ```bash
-   git clone https://github.com/michaelbaker-dev/AI-created-app.git
-   ```
-
-2. Open the `index.html` file in your web browser
-
-## Project Structure
-
-```
-AI-created-app/
-│
-├── index.html        # Main application page
-└── README.md         # Project documentation
-```
-
-## Customization
-
-Feel free to modify the `index.html` file to:
-- Change the page title
-- Update the content
-- Modify the inline CSS styles
-- Add additional features or pages
-
-## Future Roadmap
-
-- [ ] Add responsive design improvements
-- [ ] Implement interactive JavaScript features
-- [ ] Create additional pages
-- [ ] Add more comprehensive styling
+2. Open `index.html` in your browser
 
 ## Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-## Created By
-
-This project was created with the assistance of an AI, showcasing the potential of AI in web development.
-
-## License
-
-[Insert Appropriate License - e.g., MIT License]
-
----
-
-**Note:** This is a starter project and is intended to be a beginning point for further development.
+Please read the contributing guidelines before making changes.
