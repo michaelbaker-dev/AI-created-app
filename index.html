@@ -11,15 +11,59 @@
             padding: 20px;
             line-height: 1.6;
             color: #333;
+            background-color: #f4f4f4;
         }
-        h1 {
-            color: #2c3e50;
+        header {
+            background-color: #2c3e50;
+            color: white;
             text-align: center;
+            padding: 1rem;
+        }
+        nav {
+            background-color: #34495e;
+            padding: 1rem;
+            text-align: center;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+        }
+        .content {
+            background-color: white;
+            padding: 20px;
+            margin-top: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1, h2 {
+            color: #2c3e50;
         }
     </style>
 </head>
 <body>
-    <h1>Welcome to the AI-Created App</h1>
-    <p>This is a simple webpage created entirely by an AI assistant. It's a starting point for our project.</p>
+    <header>
+        <h1>AI-Created App</h1>
+    </header>
+    
+    <nav>
+        <a href="#about">About</a>
+        <a href="#goals">Project Goals</a>
+        <a href="#contact">Contact</a>
+    </nav>
+
+    <div class="content">
+        <h2>Welcome to Our AI-Powered Project</h2>
+        <p>This webpage was created entirely by an AI assistant, showcasing the potential of AI in web development and design.</p>
+        
+        <h2 id="about">About the Project</h2>
+        <p>Our goal is to demonstrate how AI can assist in creating and improving digital projects quickly and efficiently. This simple webpage is just the beginning!</p>
+        
+        <h2 id="goals">Project Goals</h2>
+        <ul>
+            <li>Explore AI-assisted web development</li>
+            <li>Create a clean, responsive design</li>
+            <li>Demonstrate collaborative potential of AI</li>
+        </ul>
+    </div>
 </body>
 </html>
